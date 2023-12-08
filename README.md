@@ -54,13 +54,13 @@ can be used with `autojump` can be used with `j` and vice versa.
     to prefer a different entry. In the above example, `j w in` would
     then change directory to /home/user/work/inbox.
 
-For more options refer to help:
+    For more options refer to help:
 
-    autojump --help
+        autojump --help
 
 - Use language translator:
 
-    Put into directory ~/.local/share/autojump file from translators/translator_xx/
+    Put into directory ~/.local/share/autojump file from translators/translator_xx
     for example translator_ru.
     For example exists directories contained russian names: /home/user/Загрузки, /home/user/Рабочий стол, etc.
     Just type: `j -t ru Za` or `j -ru Rab`: `Za` and `Rab` will be automatic transcripted to `За` and `Раб` without keyboard switching.
@@ -75,7 +75,8 @@ For more options refer to help:
         +dir+cut = dirкут
         dir+cut+dir+cut=дирcutдирcut
 
-    Text between + will not be translated
+    Text between `+` will not be translated.
+    Example of translator_* file is placed in translators/translator_* files.
 
 INSTALLATION
 ------------

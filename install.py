@@ -6,6 +6,7 @@ import os
 import platform
 import shutil
 import sys
+import glob
 
 sys.path.append('bin')
 from autojump_argparse import ArgumentParser  # noqa
@@ -18,6 +19,11 @@ def cp(src, dest, dryrun=False):
     if not dryrun:
         shutil.copy(src, dest)
 
+def cp_wildcard(src, dest, dryrun=False):
+    for file in glob.glob(src):
+        print('copying file: %s -> %s' % (file, dest))
+        if not dryrun:
+            shutil.copy(file, dest)
 
 def get_shell():
     return os.path.basename(os.getenv('SHELL', ''))
@@ -204,6 +210,7 @@ def main(args):
     cp('./bin/autojump_utils.py', bin_dir, args.dryrun)
     cp('./bin/icon.png', share_dir, args.dryrun)
     cp('./docs/autojump.1', doc_dir, args.dryrun)
+    cp_wildcard('./translators/translator_*', share_dir, args.dryrun)
 
     if platform.system() == 'Windows':
         cp('./bin/autojump.lua', args.clinkdir, args.dryrun)
