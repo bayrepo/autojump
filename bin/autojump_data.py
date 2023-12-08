@@ -54,7 +54,7 @@ def load_translator(tr_list):
     for tr_name in tr_list:
         tr_home = os.path.join(
             os.path.expanduser('~'),
-            '.local',
+            '.autojump',
             'share',
             'autojump',
             'translator_'+tr_name[1:],

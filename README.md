@@ -60,7 +60,7 @@ can be used with `autojump` can be used with `j` and vice versa.
 
 - Use language translator:
 
-    Put into directory ~/.local/share/autojump file from translators/translator_xx
+    Put into directory ~/.autojump/share/autojump file from translators/translator_xx
     for example translator_ru.
     For example exists directories contained russian names: /home/user/Загрузки, /home/user/Рабочий стол, etc.
     Just type: `j -t ru Za` or `j -ru Rab`: `Za` and `Rab` will be automatic transcripted to `За` and `Раб` without keyboard switching.
