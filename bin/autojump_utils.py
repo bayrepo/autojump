@@ -209,3 +209,35 @@ def unico(string):
     if is_python2() and not isinstance(string, unicode):
         return unicode(string, encoding='utf-8', errors='replace')
     return string
+
+def translate_word_from_dict(word, dict):
+    max_key_len = 1
+    for key in dict:
+        if len(key)>max_key_len:
+            max_key_len = len(key)
+
+    new_wrd_lst = ''
+    wrd_list = word.split('+')
+    for i, prcd_word in enumerate(wrd_list):
+        if i%2 == 1:
+            new_wrd_lst = new_wrd_lst + prcd_word
+            continue
+        new_word = ''
+
+        while len(prcd_word) > 0:
+            i = max_key_len
+            fnd_val = prcd_word[0:1]
+            is_fnd_val = False
+            while i > 0:
+                kkey = prcd_word[0:i]
+                if kkey in dict:
+                    fnd_val = dict[kkey]
+                    prcd_word = prcd_word[i:]
+                    is_fnd_val = True
+                    break
+                i = i - 1
+            new_word = new_word + fnd_val
+            if not is_fnd_val:
+                prcd_word = prcd_word[1:]
+        new_wrd_lst = new_wrd_lst + new_word
+    return new_wrd_lst

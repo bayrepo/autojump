@@ -58,6 +58,25 @@ For more options refer to help:
 
     autojump --help
 
+- Use language translator:
+
+    Put into directory ~/.local/share/autojump file from translators/translator_xx/
+    for example translator_ru.
+    For example exists directories contained russian names: /home/user/Загрузки, /home/user/Рабочий стол, etc.
+    Just type: `j -t ru Za` or `j -ru Rab`: `Za` and `Rab` will be automatic transcripted to `За` and `Раб` without keyboard switching.
+    If part of path contains letter in another language from dictionary, you can transcript only part of text:
+
+        j -ru dir+ntr+cut
+
+    In this case path will be transcripted to: дирntrкут
+    Examples:
+
+        +dir = dir
+        +dir+cut = dirкут
+        dir+cut+dir+cut=дирcutдирcut
+
+    Text between + will not be translated
+
 INSTALLATION
 ------------
 

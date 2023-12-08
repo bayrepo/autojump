@@ -48,6 +48,35 @@ def entriefy(data):
         return map(convert, data.items())
     return imap(convert, data.iteritems())
 
+def load_translator(tr_list):
+    """Returns a dictonary of translator"""
+    dict = {}
+    for tr_name in tr_list:
+        tr_home = os.path.join(
+            os.path.expanduser('~'),
+            '.local',
+            'share',
+            'autojump',
+            'translator_'+tr_name[1:],
+        )
+
+        if not os.path.exists(tr_home):
+            continue
+
+        with open(
+                    tr_home,
+                    'r', encoding='utf-8',
+                    errors='replace',
+            ) as f:
+            while True:
+                data = f.readline()
+                if not data:
+                    break
+                result=data.split('=')
+                if len(result)>1:
+                    dict[result[0].strip()]=result[1].strip()
+    return dict
+
 
 def load(config):
     """Returns a dictonary (key=path, value=weight) loaded from data file."""

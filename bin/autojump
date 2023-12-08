@@ -47,6 +47,7 @@ from autojump_data import entriefy
 from autojump_data import Entry
 from autojump_data import load
 from autojump_data import save
+from autojump_data import load_translator
 from autojump_match import match_anywhere
 from autojump_match import match_consecutive
 from autojump_match import match_fuzzy
@@ -64,6 +65,7 @@ from autojump_utils import print_tab_menu
 from autojump_utils import sanitize
 from autojump_utils import take
 from autojump_utils import unico
+from autojump_utils import translate_word_from_dict
 
 VERSION = '22.5.3'
 FUZZY_MATCH_THRESHOLD = 0.6
@@ -132,8 +134,12 @@ def parse_arguments():
         '-v', '--version', action='version', version='%(prog)s v' +
         VERSION, help='show version information',
     )
+    parser.add_argument(
+        '-t', '--translation', dest='tr', nargs='?', default='',
+        help="Translate english directory name into alphabet pointed by this param: -t ru or -t ua",
+    )
 
-    return parser.parse_args()
+    return parser.parse_known_args()
 
 
 def add_path(data, path, weight=10):
@@ -267,7 +273,7 @@ def print_stats(data, data_path):
     print('\ndata:\t %s' % data_path)
 
 
-def main(args):  # noqa
+def main(args, unknown):  # noqa
     if not is_autojump_sourced() and not is_windows():
         print("Please source the correct autojump file in your shell's")
         print('startup file. For more information, please reinstall autojump')
@@ -310,6 +316,13 @@ def main(args):  # noqa
     else:
         entries = entriefy(load(config))
         needles = sanitize(args.directory)
+        if args.tr != '' or len(unknown)>0:
+            if args.tr != '':
+                unknown.append('-'+args.tr)
+            dict = load_translator(unknown)
+            for i in range(len(needles)):
+                needles[i] = translate_word_from_dict(needles[i], dict)
+
         tab_needle, tab_index, tab_path = \
             get_tab_entry_info(first(needles), TAB_SEPARATOR)
 
@@ -339,4 +352,5 @@ def main(args):  # noqa
 
 
 if __name__ == '__main__':
-    sys.exit(main(parse_arguments()))
+    args, unknown = parse_arguments()
+    sys.exit(main(args, unknown))
