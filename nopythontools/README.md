@@ -1,4 +1,70 @@
-## 5. Утилита добавления путей в autojump 
+## Utility for adding paths to autojump
+
+There is an autojump utility that can add directories that you have already visited in history, and then, according to a short pattern, allows you to access this directory.
+
+The initial state of the directory list can be generated based on the history. If the history does not include all directories, it becomes necessary to set the cd command to the desired directories.
+
+With this utility, it is possible to bypass all directories in the specified directory and add them to autojump
+
+```
+Usage: [ruby] autojumpadder.rb [options] absolute_path_to_folder_to_add_to_autojump
+  Options:
+    -h or --help             - this help
+    -d or --dry or --dry-run - show only directories without adding to autojump
+    -n or --new-only         - add only new directories
+    -m                       - max directory scan depth, 0 - unlimited
+    -e or --exclude          - exclude dirs: -e dir1,dir2,dir3
+    -f or --file-exclude     - file of exludes dir list in format:
+                             dir1 - can be one word or absolute path
+                             dir2
+                             ...
+    -v                       - verbose
+    -p                       - show progress bar
+```
+
+Examples of calls:
+
+1. Adding all subdirectories of the home directory:
+
+```
+ruby autojumpadder.rb /home/alexey
+```
+
+2. In previous case you need to be careful, if there are many subdirectories, then the command will jump out for a long time. There is a way to limiting the depth of viewing subdirectories:
+```
+ruby autojumpadder.rb -m 3 /home/alexey
+```
+i.e. view no deeper than the 3rd subdirectory
+
+3. There are additional filters - by the presence of a line in the catalog, exclude everything that is listed in the list
+```
+ruby autojumpadder.rb -m 3 /home/alexey -e go,bin,qt,windows,rpmbuild,radare2,fcdtdebugger,sources,kernelcare,___
+```
+
+the command will exclude everything contains go,bin,qt, etc. an example is a directory like /home/alexey/go or /home/alexey/helogo
+
+4. The list of excluded words and directories can be put in a file
+```
+ruby autojumpadder.rb /home/alexey -f exclude_dirs.lst
+```
+
+5. If the utility for adding directories has already been launched before, but new ones directories have already appeared, then you can start adding only new directories:
+```
+ruby autojumpadder.rb -n /home/alexey
+```
+in this case only new directories will be added ti the database
+
+6. Utility can be started in dry-run mode, without adding directories to the database. Only shows what will be added:
+```
+ruby autojumpadder.rb -m 3 -d -n /home/alexey -e go,bin,qt,windows,rpmbuild,radare2,fcdtdebugger,sources,kernelcare,___ -v
+```
+The output will be:
+```
+[alexey@localhost tests]$ ruby autojumpadder.rb -m 3 -d -n /home/alexey -e go,bin,qt, windows,rpmbuild,radare2,fcdtdebugger,sources,kernelcare,___
+The /home/alexey/tmphome/sodovaya directory will be added with the command /home/alexey/.autojump/bin/autojump --stat
+```
+
+## Утилита добавления путей в autojump 
 
 Есть такая утилита autojump, которая может добавлять каталоги, в которых вы уже побывали в историю, и потом, по короткому паттерну, позволяет получить к этому каталогу доступ.
 
