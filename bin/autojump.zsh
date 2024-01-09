@@ -47,7 +47,7 @@ chpwd_functions+=autojump_chpwd
 
 # default autojump command
 j() {
-    if [[ ${1} == -* ]] && [[ ${1} != "--" ]]; then
+    if ! [[ ${1} =~ ^-[a-z][a-z] ]] && [[ ${1} == -* ]] && [[ ${1} != "--" ]]; then
         autojump ${@}
         return
     fi
@@ -72,7 +72,7 @@ j() {
 
 # jump to child directory (subdirectory of current path)
 jc() {
-    if [[ ${1} == -* ]] && [[ ${1} != "--" ]]; then
+    if ! [[ ${1} =~ ^-[a-z][a-z] ]] && [[ ${1} == -* ]] && [[ ${1} != "--" ]]; then
         autojump ${@}
         return
     else
@@ -83,7 +83,7 @@ jc() {
 
 # open autojump results in file browser
 jo() {
-    if [[ ${1} == -* ]] && [[ ${1} != "--" ]]; then
+    if ! [[ ${1} =~ ^-[a-z][a-z] ]] && [[ ${1} == -* ]] && [[ ${1} != "--" ]]; then
         autojump ${@}
         return
     fi
@@ -116,7 +116,7 @@ jo() {
 
 # open autojump results (child directory) in file browser
 jco() {
-    if [[ ${1} == -* ]] && [[ ${1} != "--" ]]; then
+    if ! [[ ${1} =~ ^-[a-z][a-z] ]] && [[ ${1} == -* ]] && [[ ${1} != "--" ]]; then
         autojump ${@}
         return
     else
