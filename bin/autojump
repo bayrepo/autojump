@@ -150,6 +150,8 @@ def add_path(data, path, weight=10):
     with resulting duplicate entries in the database than a single canonical
     path.
     """
+    if path == ".":
+        path = os.path.abspath(os.getcwd())
     path = unico(path).rstrip(os.sep)
     if path == os.path.expanduser('~'):
         return data, Entry(path, 0)

@@ -78,6 +78,13 @@ can be used with `autojump` can be used with `j` and vice versa.
     Text between `+` will not be translated.
     Example of translator_* file is placed in translators/translator_* files.
 
+- Add curent directory
+
+    If directory was opened through mc or another GUI file manager
+    this directory can be added by the command
+
+    `j -a .`
+
 INSTALLATION
 ------------
 
